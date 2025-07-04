@@ -28,9 +28,15 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
+
+
+- task: DownloadPipelineArtifact@2
+  inputs:
+    artifactName: 'drop'
+
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'AzureAppServiceConnection'
     appName: 'app-wallet-cwu'
-    package: '$(System.DefaultWorkingDirectory)/drop/Wallet-0.0.1-SNAPSHOT.jar'
+    package: '$(Pipeline.Workspace)/drop/Wallet-0.0.1-SNAPSHOT.jar'
     appType: 'webAppLinux'

@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: Default
 
 steps:
 - task: Maven@4
@@ -33,6 +33,7 @@ steps:
 - task: DownloadPipelineArtifact@2
   inputs:
     artifactName: 'drop'
+    targetPath: '$(Pipeline.Workspace)/drop'
 
 - task: AzureWebApp@1
   inputs:

@@ -48,15 +48,16 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter
 	}
 
 	@Override
-	protected void configure(HttpSecurity httpSecurity) throws Exception
-	{
-		httpSecurity.csrf().disable().authorizeRequests()
-				.antMatchers(AUTH_URL).permitAll().anyRequest().authenticated()
-				.and().exceptionHandling().and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		httpSecurity.addFilterBefore(filterConfig, UsernamePasswordAuthenticationFilter.class);
+	protected void configure(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity.csrf().disable()
+            .authorizeRequests()
+            .anyRequest().permitAll() // <-- This allows every request without auth.
+            .and().exceptionHandling()
+            .and().sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    httpSecurity.addFilterBefore(filterConfig, UsernamePasswordAuthenticationFilter.class);
 	}
-	
+
 	@Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/h2-console/**");

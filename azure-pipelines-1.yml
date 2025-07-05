@@ -1,14 +1,12 @@
 trigger:
   branches:
     include:
-    - master
+      - master
 
 stages:
 - stage: Build
-  displayName: Build Stage
   jobs:
   - job: BuildJob
-    displayName: Build Job
     pool:
       name: Default
     steps:
@@ -29,17 +27,16 @@ stages:
         publishLocation: 'Container'
 
 - stage: Deploy
-  displayName: Deploy Stage
   dependsOn: Build
   jobs:
   - job: DeployJob
-    displayName: Deploy Job
     pool:
       name: Default
     steps:
-    - download: current
-      artifact: drop
-
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        artifactName: 'drop'
+        targetPath: '$(Pipeline.Workspace)/drop'
     - task: AzureWebApp@1
       inputs:
         azureSubscription: 'AzureAppServiceConnection'

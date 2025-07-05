@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.alinakhan.wallet.services.UserService;
 
+
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter
 {
@@ -25,7 +26,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter
 	@Autowired
 	private RequestFilterConfig filterConfig;
 	
-	private static final String[] AUTH_URL= {"/auth/**"};
+	private static final String[] AUTH_URL= {"/", "/auth/**"};
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception

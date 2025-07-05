@@ -26,7 +26,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter
 	@Autowired
 	private RequestFilterConfig filterConfig;
 	
-	private static final String[] AUTH_URL= {"/", "/auth/**"};
+	private static final String[] AUTH_URL= { "/", "/**", "/auth/**" };
+
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception
